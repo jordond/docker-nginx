@@ -11,13 +11,15 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 ADD nginx.conf /etc/nginx/nginx.conf
-ADD error-pages /etc/nginx/errors
+
 
 ADD start.sh /start.sh
 RUN chmod u+x /start.sh
 
-RUN mkdir -p /default
-ADD default-site/ /default
+RUN mkdir -p /root/{default,errors}
+ADD default-site/ /root/default
+ADD error-pages/ /root/errors
+ADD conf.d/ /etc/nginx/conf.d
 
 RUN useradd http
 

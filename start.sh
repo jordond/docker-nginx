@@ -13,19 +13,18 @@ if [ ! -f /data/nginx.conf ]; then
 fi
 
 if [ ! -f /data/conf.d/errors.conf ]; then
-  mv /etc/nginx/errors/errors.conf /data/conf.d/errors.conf
+  cp /etc/nginx/conf.d/errors.conf /data/conf.d/errors.conf
 fi
 
 if [ ! -d "/data/errors" ]; then
   mkdir -p /data/errors
-  cp /etc/nginx/errors/*.html /data/errors
+  cp /root/errors/*.html /data/errors
 fi
-rm -r /etc/nginx/errors
 ln -s /data/errors /etc/nginx/errors
 
 ln -s /data/www /var/www
-cp /default/default /data/sites-available
-cp /default/index.html /data/www/default/index.html
+cp /root/default/default /data/sites-available
+cp /root/default/index.html /data/www/default/index.html
 
 # set permissions to data dir owner
 TARGET_GID=$(stat -c "%g" /data)
