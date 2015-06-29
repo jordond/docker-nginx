@@ -19,9 +19,9 @@ fi
 if [ ! -d "/data/errors" ]; then
   mkdir -p /data/errors
   cp /etc/nginx/errors/*.html /data/errors
-  rm -r /etc/nginx/errors
-  ln -s /data/errors /etc/nginx/errors
 fi
+rm -r /etc/nginx/errors
+ln -s /data/errors /etc/nginx/errors
 
 ln -s /data/www /var/www
 cp /default/default /data/sites-available
