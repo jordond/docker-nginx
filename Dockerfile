@@ -11,6 +11,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 ADD nginx.conf /etc/nginx/nginx.conf
+ADD error-pages /etc/nginx/errors
 
 ADD start.sh /start.sh
 RUN chmod u+x /start.sh

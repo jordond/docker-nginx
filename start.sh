@@ -12,6 +12,17 @@ if [ ! -f /data/nginx.conf ]; then
   cp /etc/nginx/nginx.conf /data/nginx.conf
 fi
 
+if [ ! -f /data/conf.d/errors.conf ]; then
+  mv /etc/nginx/errors/errors.conf /data/conf.d/errors.conf
+fi
+
+if [ ! -d "/data/errors" ]; then
+  mkdir -p /data/errors
+  cp /etc/nginx/errors/*.html /data/errors
+  rm -r /etc/nginx/errors
+  ln -s /data/errors /etc/nginx/errors
+fi
+
 ln -s /data/www /var/www
 cp /default/default /data/sites-available
 cp /default/index.html /data/www/default/index.html
