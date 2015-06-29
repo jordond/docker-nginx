@@ -15,6 +15,8 @@ ADD nginx.conf /etc/nginx/nginx.conf
 ADD start.sh /start.sh
 RUN chmod u+x /start.sh
 
+RUN useradd http
+
 VOLUME /data
 
 # expose port for http
@@ -23,4 +25,4 @@ EXPOSE 80
 # expose port for https
 EXPOSE 443
 
-CMD ["start.sh"]
+CMD ["/start.sh"]
