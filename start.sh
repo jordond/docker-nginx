@@ -5,11 +5,16 @@
 GROUP=httptmp
 
 mkdir -p /data/sites-{enabled,available}
-mkdir -p /data/{secure,conf.d,logs,www}
+mkdir -p /data/{secure,conf.d,logs}
+mkdir -p /data/www/default
 
 if [ ! -f /data/nginx.conf ]; then
   cp /etc/nginx/nginx.conf /data/nginx.conf
 fi
+
+ln -s /data/www /var/www
+cp /default/default /data/sites-available
+cp /default/index.html /data/www/default/index.html
 
 # set permissions to data dir owner
 TARGET_GID=$(stat -c "%g" /data)

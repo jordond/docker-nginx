@@ -15,6 +15,9 @@ ADD nginx.conf /etc/nginx/nginx.conf
 ADD start.sh /start.sh
 RUN chmod u+x /start.sh
 
+RUN mkdir -p /default
+ADD default-site/ /default
+
 RUN useradd http
 
 VOLUME /data
