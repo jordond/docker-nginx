@@ -25,7 +25,7 @@ ln -sf /data/errors /etc/nginx/
 
 ln -sf /data/www /var/
 
-if [ ! -f /data/sites-available/default]; then
+if [ ! -f /data/sites-available/default ]; then
   cp /root/default/default /data/sites-available
   cp /root/default/index.html /data/www/default/index.html
 fi
