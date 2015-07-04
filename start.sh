@@ -4,14 +4,15 @@
 
 GROUP=httptmp
 
+# Make the required directories in /data if they aren't already there
 mkdir -p /data/sites-{enabled,available}
 mkdir -p /data/{secure,conf.d,logs}
 mkdir -p /data/www/default
 
+# If the default conf doesn't exist copy it
 if [ ! -f /data/nginx.conf ]; then
   cp /etc/nginx/nginx.conf /data/nginx.conf
 fi
-
 if [ ! -f /data/conf.d/errors.conf ]; then
   cp /etc/nginx/conf.d/errors.conf /data/conf.d/errors.conf
 fi
@@ -23,8 +24,11 @@ fi
 ln -sf /data/errors /etc/nginx/
 
 ln -sf /data/www /var/
-cp /root/default/default /data/sites-available
-cp /root/default/index.html /data/www/default/index.html
+
+if [ ! -f /data/sites-available/default]; then
+  cp /root/default/default /data/sites-available
+  cp /root/default/index.html /data/www/default/index.html
+fi
 
 # set permissions to data dir owner
 TARGET_GID=$(stat -c "%g" /data)
@@ -44,4 +48,5 @@ chgrp -R ${GROUP} /data
 chmod -R g+wX /data
 
 # run nginx with config file from /data
+echo "Starting nginx..."
 exec /usr/sbin/nginx -c /data/nginx.conf
